@@ -466,11 +466,15 @@ footer .foot-note{color:#b4c4d4;font-size:14.5px;}
 /* ==========================================================================
    Allocation engine (JavaScript mirror ng Java classes)
 
-   Same formulas and weights as Scholarship_Allocator:
-     GradeCriterion      (grade - 75) / 25 * 100
-     IncomeCriterion     <15k 100, <30k 90, <50k 80, else 60
-     DependentsCriterion min(dep, 5) / 5 * 100
+   SMART value curves at weights, tugma sa Java classes:
+     GradeCriterion      ((grade - 75) / 25) ^ 1.35 * 100
+     IncomeCriterion     100 * exp(-(income - 15000) / 25000)
+     DependentsCriterion 100 * dep / (dep + 2)
      NeedCriterion       (30000 - income / (dep + 1)) / 30000 * 100
+
+   Ang unang tatlo ay non-linear value curves (SMART) para hindi
+   magkabuklod ang magkakalapit na aplikante. Ang Total ay weighted
+   sum ng utilities, kaya nananatiling 0-100 ang score.
    ========================================================================== */
 
 const CONFIG = {
@@ -488,15 +492,17 @@ const STORAGE_KEY = 'scholarship.applicants.v1';
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
 function scoreOf(a) {
-  const grade = clamp(((a.grade - 75) / 25) * 100, 0, 100);
+  // Academic: convex value curve -- mas malaki ang agwat sa 85-100.
+  const grade = Math.pow(clamp((a.grade - 75) / 25, 0, 1), 1.35) * 100;
 
-  let income;
-  if (a.income < 15000)      income = 100;
-  else if (a.income < 30000) income = 90;
-  else if (a.income < 50000) income = 80;
-  else                       income = 60;
+  // Income: continuous exponential decay -- walang step buckets.
+  const income = a.income <= 15000
+    ? 100
+    : clamp(100 * Math.exp(-(a.income - 15000) / 25000), 0, 100);
 
-  const dependents = (Math.min(a.dependents, 5) / 5) * 100;
+  // Dependents: saturating curve -- walang artificial cap sa 5.
+  const dep = Math.max(0, a.dependents);
+  const dependents = (100 * dep) / (dep + 2);
 
   const perMember = a.income / (a.dependents + 1);
   const need = clamp(((30000 - perMember) / 30000) * 100, 0, 100);
@@ -512,7 +518,13 @@ function scoreOf(a) {
 function ranked() {
   return load()
     .map((a) => ({ ...a, score: scoreOf(a).total }))
-    .sort((x, y) => y.score - x.score)
+    .sort((x, y) =>
+      y.score - x.score ||                                              // 1. weighted score
+      y.grade - x.grade ||                                              // 2. mas mataas na grade
+      x.income / (x.dependents + 1) - y.income / (y.dependents + 1) ||   // 3. mas nangangailangan
+      y.dependents - x.dependents ||                                     // 4. mas maraming dependents
+      (x.addedAt || 0) - (y.addedAt || 0)                                // 5. submission order
+    )
     .map((a, i) => ({ ...a, rank: i + 1, status: i < CONFIG.slots ? 'GRANTED' : 'WAITLIST' }));
 }
 
