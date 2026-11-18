@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My application — Local Scholarship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230f2438'/%3E%3Cpath d='M12 7l6 2.6-6 2.6-6-2.6 6-2.6z' fill='white'/%3E%3Cpath d='M7 11.4v2.9c0 .8 2.2 1.7 5 1.7s5-.9 5-1.7v-2.9l-5 2.1-5-2.1z' fill='white'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4L2.5 8.2 12 12.4l9.5-4.2L12 4z"/>
+          <path d="M6 10.2v4.6c0 1.3 2.7 2.6 6 2.6s6-1.3 6-2.6v-4.6"/>
+          <path d="M21.5 8.2v5.4"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Local Scholarship</strong>
+        <small>Slot Allocator</small>
+      </span>
+    </a>
+
+    <nav class="nav-links">
+      <a class="navlink" href="index.html#how-it-works">How it works</a>
+      <a class="navlink" href="index.html#eligibility">Eligibility</a>
+      <span id="nav-session"></span>
+    </nav>
+  </div>
+</header>
+
+<main class="apply-page">
+  <div class="container">
+
+    <div class="page-head">
+      <span class="pill">2025 Scholarship application</span>
+      <h1>Apply for a scholarship</h1>
+      <p>
+        Signed in as <b id="student-name">…</b>. Fill in your academic and household details —
+        your application is scored instantly and ranked against everyone else in the cycle.
+      </p>
+    </div>
+
+    <div class="apply-grid">
+
+      <!-- ---------- Form ---------- -->
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Your details</h2>
+            <p>Name and barangay come from your account.</p>
+          </div>
+        </div>
+
+        <div class="alert error" id="form-error" role="alert"></div>
+
+        <form id="applicant-form" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" readonly>
+          </div>
+
+          <div class="field">
+            <label for="barangay">Barangay</label>
+            <input id="barangay" name="barangay" type="text" readonly>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="grade">General average</label>
+              <input id="grade" name="grade" type="number" min="0" max="100" step="0.01" placeholder="90" required>
+              <span class="hint">0 – 100</span>
+            </div>
+            <div class="field">
+              <label for="dependents">Dependents</label>
+              <input id="dependents" name="dependents" type="number" min="0" max="30" step="1" placeholder="4" required>
+              <span class="hint">in the household</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="income">Monthly family income</label>
+            <input id="income" name="income" type="number" min="0" step="100" placeholder="12000" required>
+            <span class="hint">in pesos (₱)</span>
+          </div>
+
+          <button class="btn btn-submit" id="submit-btn" type="submit">
+            Submit application
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </form>
+
+        <p class="weights" id="weights-note">Loading scoring weights…</p>
+      </section>
+
+      <!-- ---------- Own status ---------- -->
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Your application</h2>
+            <p>Only you can see this — the full ranking is for the admin.</p>
+          </div>
+        </div>
+
+        <div id="status-body">
+          <p class="loading">Checking your application…</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4L2.5 8.2 12 12.4l9.5-4.2L12 4z"/>
+          <path d="M6 10.2v4.6c0 1.3 2.7 2.6 6 2.6s6-1.3 6-2.6v-4.6"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Local Scholarship</strong>
+        <small>Slot Allocator</small>
+      </span>
+    </div>
+    <p class="foot-note">City Scholarship Office · Serving local learners since 2018</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

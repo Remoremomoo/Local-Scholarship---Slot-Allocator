@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Local Scholarship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230f2438'/%3E%3Cpath d='M12 7l6 2.6-6 2.6-6-2.6 6-2.6z' fill='white'/%3E%3Cpath d='M7 11.4v2.9c0 .8 2.2 1.7 5 1.7s5-.9 5-1.7v-2.9l-5 2.1-5-2.1z' fill='white'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4L2.5 8.2 12 12.4l9.5-4.2L12 4z"/>
+          <path d="M6 10.2v4.6c0 1.3 2.7 2.6 6 2.6s6-1.3 6-2.6v-4.6"/>
+          <path d="M21.5 8.2v5.4"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Local Scholarship</strong>
+        <small>Slot Allocator</small>
+      </span>
+    </a>
+
+    <nav class="nav-links">
+      <a class="navlink" href="index.html#how-it-works">How it works</a>
+      <a class="navlink" href="index.html#eligibility">Eligibility</a>
+      <span id="nav-session"></span>
+    </nav>
+  </div>
+</header>
+
+<main class="auth-page">
+  <div class="container">
+    <div class="auth-card">
+      <span class="pill">Account access</span>
+      <h1>Sign in</h1>
+      <p class="auth-sub">Students track their own application. Admins manage the whole cycle.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" type="button" data-role="student" role="tab" aria-selected="true">Student</button>
+        <button class="tab" type="button" data-role="admin" role="tab" aria-selected="false">Admin</button>
+      </div>
+
+      <div class="alert error" id="auth-error" role="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="username">Username or email</label>
+          <input id="username" name="username" type="text" autocomplete="username" placeholder="juan.delacruz or juan@email.com" data-placeholder-student="juan.delacruz or juan@email.com" data-placeholder-admin="admin" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" required>
+        </div>
+
+        <button class="btn btn-submit" id="login-btn" type="submit">Sign in</button>
+      </form>
+
+      <p class="auth-alt" id="login-forgot"><a href="forgot.html">Forgot password?</a></p>
+
+      <p class="auth-alt" id="login-alt">No student account yet? <a href="register.html">Create one</a></p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4L2.5 8.2 12 12.4l9.5-4.2L12 4z"/>
+          <path d="M6 10.2v4.6c0 1.3 2.7 2.6 6 2.6s6-1.3 6-2.6v-4.6"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Local Scholarship</strong>
+        <small>Slot Allocator</small>
+      </span>
+    </div>
+    <p class="foot-note">City Scholarship Office · Serving local learners since 2018</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

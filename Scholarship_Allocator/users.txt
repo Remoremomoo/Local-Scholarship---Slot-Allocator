@@ -1,0 +1,3 @@
+# Local Scholarship accounts -- huwag i-commit sa git.
+# username|role|iterations|salt|hash|fullName|barangay|email|phone
+admin|admin|120000|bS/7x6woHZlB5P4dGsCKAA==|Q6gPifApNOur5oBublRlKUmXG5yMh4eJRdk22kJ4cj0=|Scholarship Administrator|City Scholarship Office||

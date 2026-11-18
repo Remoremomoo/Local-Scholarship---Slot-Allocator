@@ -1,0 +1,4 @@
+Scholarship website is running:  http://localhost:8080
+API:  GET /api/config   GET /api/results   POST /api/applicants   POST /api/reset
+Web root: C:\MY FOLDER\WORKSPACE\JAVA\Scholarship_Allocator\web
+Press Ctrl+C to stop.
